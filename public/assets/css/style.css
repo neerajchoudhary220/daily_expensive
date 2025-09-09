@@ -1,0 +1,31 @@
+        body {
+            overflow-x: hidden;
+        }
+
+        #sidebar {
+            min-width: 220px;
+            max-width: 220px;
+            min-height: 100vh;
+            background: #212529;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        #sidebar .nav-link {
+            color: #adb5bd;
+        }
+
+        #sidebar .nav-link.active,
+        #sidebar .nav-link:hover {
+            color: #fff;
+            background: #0d6efd;
+            border-radius: .375rem;
+        }
+
+        #content {
+            transition: margin-left 0.3s;
+        }
+
+        #sidebar.collapsed {
+            margin-left: -220px;
+        }
