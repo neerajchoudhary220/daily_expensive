@@ -2,8 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\ExpenseCategory;
-use App\Models\ExpensesCategory;
+use App\Models\Expense;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\EloquentDataTable;
@@ -12,25 +11,24 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ExpenseCategoryDataTable extends DataTable
+class ExpensesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
-     * @param  QueryBuilder<ExpenseCategory>  $query  Results from query() method.
+     * @param  QueryBuilder<Expense>  $query  Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->addColumn('action', function ($category) {
-                $category_id = $category->id;
+            ->addColumn('action', function ($expenses) {
+                $expenses_id = $expenses->id;
 
-                return "<div class='d-flex justify-content-center category-edit' data-id='$category_id'><button class='btn btn-warning text-white btn-sm'><i class='bi bi-pencil-fill'></i></button></div>";
+                return "<div class='d-flex justify-content-center expense-edit' data-id='$expenses_id'><button class='btn btn-warning text-white btn-sm'><i class='bi bi-pencil-fill'></i></button></div>";
             })
-            ->editColumn('created_at', fn ($category) => Carbon::parse($category->created_at)->format('Y-M-d'))
-            ->editColumn('updated_at', fn ($category) => Carbon::parse($category->updated_at)->format('Y-M-d'))
-
+            ->editColumn('created_at', fn ($expenses) => Carbon::parse($expenses->created_at)->format('Y-M-d'))
+            ->editColumn('updated_at', fn ($expenses) => Carbon::parse($expenses->updated_at)->format('Y-M-d'))
             ->setRowId('id')
             ->rawColumns(['action']);
     }
@@ -38,9 +36,9 @@ class ExpenseCategoryDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      *
-     * @return QueryBuilder<ExpenseCategory>
+     * @return QueryBuilder<Expense>
      */
-    public function query(ExpensesCategory $model): QueryBuilder
+    public function query(ExpensesDataTable $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -51,7 +49,7 @@ class ExpenseCategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('expensecategory-table')
+            ->setTableId('expenses-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -61,8 +59,8 @@ class ExpenseCategoryDataTable extends DataTable
                 Button::make('csv'),
                 Button::make('pdf'),
                 Button::make('print'),
-                // Button::make('reset'),
-                // Button::make('reload'),
+                Button::make('reset'),
+                Button::make('reload'),
             ]);
     }
 
@@ -77,11 +75,6 @@ class ExpenseCategoryDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false),
             Column::make('id')->hidden(),
-            // Column::computed('action')
-            //     ->exportable(false)
-            //     ->printable(false)
-            //     ->width(60)
-            //     ->addClass('text-center'),
             Column::make('name'),
             Column::make('created_at'),
             Column::make('updated_at'),
@@ -94,6 +87,6 @@ class ExpenseCategoryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ExpenseCategory_'.date('YmdHis');
+        return 'Expenses_'.date('YmdHis');
     }
 }

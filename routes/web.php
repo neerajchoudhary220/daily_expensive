@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExpenseCategoryController;
+use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\web\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,10 @@ Route::middleware('auth')->group(function () {
     // Category
     Route::controller(ExpenseCategoryController::class)->prefix('category')->group(function () {
         Route::get('/', 'index')->name('category');
+    });
+    // Expenses
+    Route::controller(ExpensesController::class)->prefix('expenses')->group(function () {
+        Route::get('/', 'index')->name('expenses');
     });
 
     Route::get('logout', function () {

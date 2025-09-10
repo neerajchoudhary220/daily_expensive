@@ -17,6 +17,13 @@
                   Categories</a>
           </li>
           <li class="nav-item">
+              <a href="{{ route('expenses') }}" @class([
+                  'nav-link d-flex align-items-center',
+                  'active' => request()->is(['expenses']),
+              ])><i class="bi bi-bag-fill me-2"></i>
+                  Expenses</a>
+          </li>
+          <li class="nav-item">
               <a href="#" class="nav-link d-flex align-items-center"> <i
                       class="bi bi-bar-chart-line-fill me-2"></i> Reports</a>
           </li>

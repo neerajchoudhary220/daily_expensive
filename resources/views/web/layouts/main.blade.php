@@ -9,6 +9,7 @@
     <title>@yield('title', 'Expenses Tracker')</title>
     @include('web.layouts.includes.css')
     @stack('custom-css')
+    @livewireStyles
 </head>
 
 <body>
@@ -31,7 +32,7 @@
     <!-- JS -->
     @include('web.layouts.includes.js')
     @stack('custom-js')
-
+    @livewireScripts
 </body>
 
 </html>
