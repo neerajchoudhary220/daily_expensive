@@ -5,23 +5,24 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class DefaultUser extends Seeder
+class DefaultUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
+
         $users = [
             [
                 'name' => 'Girja Choudhary',
-                'username' => 'girja123',
-                'password' => 'girja123',
+                'username' => 'girjachoudhary',
+                'password' => 'girja_vamika@069',
             ],
             [
                 'name' => 'Neeraj Choudhary',
-                'username' => 'neeraj123',
-                'password' => 'neeraj123',
+                'username' => 'neerajchoudhary',
+                'password' => 'neeraj_vamika@669',
 
             ],
         ];
