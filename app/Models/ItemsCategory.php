@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ExpensesCategory extends Model
+class ItemsCategory extends Model
 {
-    /** @use HasFactory<\Database\Factories\ExpensesCategoryFactory> */
+    /** @use HasFactory<\Database\Factories\ItemsCategoryFactory> */
     use HasFactory,SoftDeletes;
 
     protected $fillable = ['name', 'description'];
@@ -22,7 +22,7 @@ class ExpensesCategory extends Model
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn ($name) => str()->title($name)
+            get: fn ($name) => str()->title($name),
         );
     }
 }

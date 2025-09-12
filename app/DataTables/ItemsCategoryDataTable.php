@@ -2,8 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\ExpenseCategory;
-use App\Models\ExpensesCategory;
+use App\Models\Itemscategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\EloquentDataTable;
@@ -12,12 +11,12 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ExpenseCategoryDataTable extends DataTable
+class ItemsCategoryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
-     * @param  QueryBuilder<ExpenseCategory>  $query  Results from query() method.
+     * @param  QueryBuilder<itemscategory>  $query  Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -38,9 +37,9 @@ class ExpenseCategoryDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      *
-     * @return QueryBuilder<ExpenseCategory>
+     * @return QueryBuilder<itemscategory>
      */
-    public function query(ExpensesCategory $model): QueryBuilder
+    public function query(ItemsCategory $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -51,7 +50,7 @@ class ExpenseCategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('expensecategory-table')
+            ->setTableId('itemscategory-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -94,6 +93,6 @@ class ExpenseCategoryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ExpenseCategory_'.date('YmdHis');
+        return 'itemscategory_'.date('YmdHis');
     }
 }

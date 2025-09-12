@@ -1,5 +1,5 @@
 @extends('web.layouts.main')
-@section('title', 'Expenses Category')
+@section('title', 'Items Category')
 @section('contents')
     <div class="row mb-3">
         <div class="d-flex justify-content-left">
@@ -30,7 +30,7 @@
                 // $(document).on("click", '.category-edit', function() {
                 //     const categoryId = $(this).data('id');
                 //     Livewire.dispatch('edit-category-event', {
-                //         'expenses_category': categoryId
+                //         'items_category': categoryId
                 //     });
                 // })
             });

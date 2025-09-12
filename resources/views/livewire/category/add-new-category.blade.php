@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div class="row justify-content-center">
                         <form
-                            @if (!empty($expenses_category)) wire:submit.prevent="update" @else wire:submit.prevent="save" @endif>
+                            @if (!empty($items_category)) wire:submit.prevent="update" @else wire:submit.prevent="save" @endif>
                             <!-- Category Name -->
                             <div class="mb-3">
                                 <label for="categoryName" class="form-label fw-bold required">Category Name</label>
@@ -40,7 +40,7 @@
                                     <button type="button" class="btn btn-danger text-white"
                                         data-bs-dismiss="modal">Close</button>
 
-                                    @if (!empty($expenses_category))
+                                    @if (!empty($items_category))
                                         <button type="submit" class="bi bi-arrow-repeat me-1 btn btn-info text-white"
                                             wire:click='update'> Update</button>
                                     @else

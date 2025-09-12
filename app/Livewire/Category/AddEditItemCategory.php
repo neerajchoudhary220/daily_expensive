@@ -2,31 +2,32 @@
 
 namespace App\Livewire\Category;
 
-use App\Models\ExpensesCategory;
+use App\Models\ItemsCategory;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class AddNewCategory extends Component
+class AddEditItemCategory extends Component
 {
     public $name = '';
 
     public $description = '';
 
-    public $expenses_category = null;
+    public $items_category = null;
 
     protected $rules = [
-        'name' => ['required', 'min:3', 'max:100', 'unique:expenses_categories,name'],
+        'name' => ['required', 'min:3', 'max:100', 'unique:items_categories,name'],
         'description' => ['nullable', 'min:3', 'max:500'],
     ];
 
     protected function resetError()
     {
+        $this->name = $this->description = '';
         $this->resetErrorBag(['name', 'description']);
 
     }
 
     #[On('add-new-category-event')]
-    public function handleAddNewCategory()
+    public function handleAddEditItemCategory()
     {
         $this->resetError();
         $this->dispatch('show-add-new-category-modal');
@@ -35,7 +36,7 @@ class AddNewCategory extends Component
     public function save()
     {
         $category_data = $this->validate($this->rules);
-        ExpensesCategory::create($category_data);
+        ItemsCategory::create($category_data);
         session()->flash('message', 'New Category Added Successfully');
 
         // force full page reload
@@ -44,12 +45,12 @@ class AddNewCategory extends Component
     }
 
     #[On('edit-category-event')]
-    public function handleEditCategory(ExpensesCategory $expenses_category)
+    public function handleEditCategory(ItemsCategory $items_category)
     {
         $this->resetError();
-        $this->expenses_category = $expenses_category;
-        $this->name = $expenses_category->name;
-        $this->description = $expenses_category->description;
+        $this->items_category = $items_category;
+        $this->name = $items_category->name;
+        $this->description = $items_category->description;
         $this->dispatch('show-add-new-category-modal');
 
     }
@@ -60,10 +61,10 @@ class AddNewCategory extends Component
             'required',
             'min:3',
             'max:100',
-            'unique:expenses_categories,name,'.($this->expenses_category->id),
+            'unique:items_categories,name,'.($this->items_category->id),
         ];
         $data = $this->validate($this->rules);
-        $this->expenses_category->update($data);
+        $this->items_category->update($data);
         session()->flash('message', 'Category Updated Successfully');
 
         // force full page reload

@@ -18,8 +18,8 @@ class Expenses extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function expenseCategory(): BelongsTo
+    public function itemscategory(): BelongsTo
     {
-        return $this->belongsTo(ExpensesCategory::class);
+        return $this->belongsTo(ItemsCategory::class);
     }
 }
