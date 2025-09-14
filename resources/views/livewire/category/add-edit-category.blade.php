@@ -4,7 +4,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-info text-white">
-                    <h4 class="mb-0 modal-title"><i class="bi bi-folder-plus me-2"></i>Add New Category</h4>
+                    <h4 class="mb-0 modal-title"><i class="bi bi-folder-plus me-2"></i>
+                        @if (!empty($items_category))
+                            Update Cateogry
+                        @else
+                            Add New Category
+                        @endif
+                    </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -28,8 +34,8 @@
 
                             <!-- Category Description -->
                             <div class="mb-3">
-                                <label for="categoryDescription" class="form-label fw-bold">Description
-                                    (Optional)</label>
+                                <label for="categoryDescription" class="form-label fw-bold optional">Description
+                                </label>
                                 <textarea class="form-control" id="categoryDescription" rows="3" wire:model="description"
                                     placeholder="Enter short description..."></textarea>
                             </div>

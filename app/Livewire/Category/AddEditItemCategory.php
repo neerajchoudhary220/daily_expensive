@@ -74,6 +74,6 @@ class AddEditItemCategory extends Component
 
     public function render()
     {
-        return view('livewire.category.add-new-category');
+        return view('livewire.category.add-edit-category');
     }
 }

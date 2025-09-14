@@ -6,14 +6,36 @@
             <div class="me-auto">
                 <h4>Items</h4>
             </div>
-            <button class="btn btn-info btn-sm text-white" id="add-new-category-btn"><i class="bi bi-plus me-2"></i>Add New
+            <button class="btn btn-info btn-sm text-white" id="add-new-item-btn"><i class="bi bi-plus me-2"></i>Add New
                 Items</button>
         </div>
     </div>
     <hr>
     <div class="row">
+        {{ $dataTable->table() }}
+    </div>
+    <div>
+        @livewire('items.add-edit-item')
     </div>
 
+    @push('custom-js')
+        @include('web.layouts.includes.datatable-js')
+        {{ $dataTable->scripts() }}
 
+        <script>
+            $(document).ready(function() {
+                $("#add-new-item-btn").on("click", function() {
+                    Livewire.dispatch('show-add-item-model-event')
+                })
+                //Click To Edit Button
+                $(document).on("click", '.item-edit', function() {
+                    const itemId = $(this).data('id');
+                    Livewire.dispatch('edit-item-event', {
+                        'item': itemId
+                    });
+                })
+            })
+        </script>
+    @endpush
 
 @endsection
