@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items_categories', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->auditableWithNullable();
             $table->string('name');
-            $table->longText('description')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items_categories');
+        Schema::dropIfExists('units');
     }
 };

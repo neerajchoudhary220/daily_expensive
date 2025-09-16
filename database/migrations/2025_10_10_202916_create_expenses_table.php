@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->auditable();
             $table->foreignId('items_category_id')->constrained('items_categories');
             $table->foreignId('items_id')->constrained('items');
+            $table->foreignId('unit_id')->constrained('units');
             $table->date('date');
             $table->decimal('price', 8)->nullable();
+            $table->enum('payment_mode', ['online', 'offline'])->default('online');
             $table->longText('description');
             $table->timestamps();
         });

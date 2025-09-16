@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Expense;
+use App\Models\Expenses;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\EloquentDataTable;
@@ -38,7 +39,7 @@ class ExpensesDataTable extends DataTable
      *
      * @return QueryBuilder<Expense>
      */
-    public function query(ExpensesDataTable $model): QueryBuilder
+    public function query(Expenses $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -59,8 +60,8 @@ class ExpensesDataTable extends DataTable
                 Button::make('csv'),
                 Button::make('pdf'),
                 Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
+                // Button::make('reset'),
+                // Button::make('reload'),
             ]);
     }
 
