@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\AuditableTrait;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,5 +17,10 @@ class Item extends Model
     public function itemsCategory()
     {
         return $this->belongsTo(ItemsCategory::class);
+    }
+
+    public function scopeSelectedCategory(Builder $query, $category_id): Builder
+    {
+        return $query->where('items_category_id', $category_id);
     }
 }

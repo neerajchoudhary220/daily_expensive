@@ -14,26 +14,26 @@
     <div class="row">
         {{ $dataTable->table() }}
     </div>
-
+    <div>
+        @livewire('expenses.add-edit-expense')
+    </div>
 
     @push('custom-js')
         @include('web.layouts.includes.datatable-js')
         {{ $dataTable->scripts() }}
         <script>
             $(document).ready(function() {
-                // //Click To Add New Category
-                // $("#add-new-category-btn").on("click", function() {
-                //     Livewire.dispatch('add-new-category-event');
-                // });
-
-                // //Click To Edit Button
-                // $(document).on("click", '.category-edit', function() {
-                //     const categoryId = $(this).data('id');
-                //     Livewire.dispatch('edit-category-event', {
-                //         'items_category': categoryId
+                $("#add-new-expenses-btn").on("click", function() {
+                    Livewire.dispatch('show-add-expense-model-event')
+                })
+                //Click To Edit Button
+                // $(document).on("click", '.item-edit', function() {
+                //     const itemId = $(this).data('id');
+                //     Livewire.dispatch('edit-item-event', {
+                //         'item': itemId
                 //     });
                 // })
-            });
+            })
         </script>
     @endpush
 @endsection
