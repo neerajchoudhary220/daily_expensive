@@ -26,13 +26,13 @@
                 $("#add-new-expenses-btn").on("click", function() {
                     Livewire.dispatch('show-add-expense-model-event')
                 })
-                //Click To Edit Button
-                // $(document).on("click", '.item-edit', function() {
-                //     const itemId = $(this).data('id');
-                //     Livewire.dispatch('edit-item-event', {
-                //         'item': itemId
-                //     });
-                // })
+                // Click To Edit Button
+                $(document).on("click", '.expense-edit', function() {
+                    const expense_id = $(this).data('id');
+                    Livewire.dispatch('edit-expense-event', {
+                        'expense': expense_id
+                    });
+                })
             })
         </script>
     @endpush

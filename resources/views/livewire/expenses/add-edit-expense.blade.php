@@ -31,7 +31,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('category')
+                                        @error('items_category_id')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -48,7 +48,7 @@
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('item')
+                                        @error('item_id')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -56,7 +56,7 @@
 
                             </div>
                             @if ($items)
-                                <div class="row">
+                                <div class="row mb-3">
                                     {{-- Unit/Size --}}
                                     <div class="mb-3 col-3">
                                         <label for="unit" class="form-label fw-bold required"><i
@@ -67,7 +67,7 @@
                                                 <option value="{{ $unit->id }}">{{ $unit->name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('unit')
+                                        @error('unit_id')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -108,20 +108,34 @@
                                         <div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="payment_mode"
-                                                    id="online" wire:model="payment_mode">
+                                                    id="online" wire:model="payment_mode" value="online">
                                                 <label class="form-check-label" for="online">Online</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="payment_mode"
-                                                    id="offline" wire:model="payment_mode">
+                                                    id="offline" wire:model="payment_mode" value="offline">
                                                 <label class="form-check-label" for="offline">Offline</label>
                                             </div>
 
                                         </div>
+                                        @error('payment_mode')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
 
 
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <label for="description" class="form-label fw-bold required"
+                                            for="description">Description
+                                            (Optional)</label>
+                                        <textarea class="form-control form-control-lg" id="description" wire:model="description" rows="4"></textarea>
+                                        @error('description')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             @endif
 
@@ -138,11 +152,11 @@
                                         data-bs-dismiss="modal">Close</button>
 
                                     @if (!empty($expense))
-                                        <button type="submit" class="bi bi-arrow-repeat me-1 btn btn-info text-white"
-                                            wire:click='update'> Update</button>
+                                        <button type="submit"
+                                            class="bi bi-arrow-repeat me-1 btn btn-info text-white"> Update</button>
                                     @else
-                                        <button type="submit" class="bi bi-plus-circle me-1 btn btn-info text-white"
-                                            wire:click='save'>Save</button>
+                                        <button type="submit"
+                                            class="bi bi-plus-circle me-1 btn btn-info text-white">Save</button>
                                     @endif
                                     </button>
                                 </div>

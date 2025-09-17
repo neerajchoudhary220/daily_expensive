@@ -23,15 +23,27 @@ class ExpensesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
+            ->addColumn('name', function ($expenses) {
+                return $expenses->item->name;
+            })
+            ->addColumn('category', function ($expenses) {
+                return $expenses->itemCategory->name;
+            })
+            ->addColumn('unit', function ($expenses) {
+                return $expenses->unit->name;
+            })
+            ->editColumn('date', function ($expenses) {
+                return Carbon::parse($expenses->date)->format('d-M-Y');
+            })
             ->addColumn('action', function ($expenses) {
                 $expenses_id = $expenses->id;
 
                 return "<div class='d-flex justify-content-center expense-edit' data-id='$expenses_id'><button class='btn btn-warning text-white btn-sm'><i class='bi bi-pencil-fill'></i></button></div>";
             })
-            ->editColumn('created_at', fn ($expenses) => Carbon::parse($expenses->created_at)->format('Y-M-d'))
-            ->editColumn('updated_at', fn ($expenses) => Carbon::parse($expenses->updated_at)->format('Y-M-d'))
+            ->editColumn('created_at', fn ($expenses) => Carbon::parse($expenses->created_at)->format('d-M-Y'))
+            // ->editColumn('updated_at', fn ($expenses) => Carbon::parse($expenses->updated_at)->format('d-M-Y'))
             ->setRowId('id')
-            ->rawColumns(['action']);
+            ->rawColumns(['action', 'name', 'category', 'unit', 'date']);
     }
 
     /**
@@ -77,8 +89,12 @@ class ExpensesDataTable extends DataTable
                 ->orderable(false),
             Column::make('id')->hidden(),
             Column::make('name'),
+            Column::make('category'),
+            Column::make('unit'),
+            Column::make('price'),
+            Column::make('date'),
             Column::make('created_at'),
-            Column::make('updated_at'),
+            // Column::make('updated_at'),
             Column::make('action')->addClass('text-center')->exportable(false)->printable(false)->orderable(false),
         ];
     }

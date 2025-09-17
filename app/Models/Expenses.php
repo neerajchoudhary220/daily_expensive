@@ -13,10 +13,20 @@ class Expenses extends Model
     use AuditableTrait,HasFactory;
 
     protected $fillable = ['name', 'date', 'price', 'description', 'unit_id',
-        'items_category_id', 'items_id', 'payment_mode'];
+        'items_category_id', 'item_id', 'payment_mode', 'qty'];
 
-    public function ItemCategory(): BelongsTo
+    public function itemCategory(): BelongsTo
     {
-        return $this->belongsTo(ItemsCategory::class);
+        return $this->belongsTo(ItemsCategory::class, 'items_category_id');
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
     }
 }

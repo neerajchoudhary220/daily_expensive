@@ -9,10 +9,12 @@ trait AuditableTrait
     protected static function boot()
     {
         parent::boot();
-        static::creating(function ($model) {
-            $model->user_id = auth()->user()->id;
-        });
 
+        static::creating(function ($model) {
+            if (auth()->check()) { // check if user is logged in
+                $model->user_id = auth()->id(); // safer than auth()->user()->id
+            }
+        });
     }
 
     public function user()
