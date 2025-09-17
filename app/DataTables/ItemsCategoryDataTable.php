@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Itemscategory;
+use App\Models\ItemsCategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\EloquentDataTable;
