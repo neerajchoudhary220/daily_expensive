@@ -12,21 +12,11 @@ class Expenses extends Model
     /** @use HasFactory<\Database\Factories\ExpensesFactory> */
     use AuditableTrait,HasFactory;
 
-    protected $fillable = ['name', 'date', 'price', 'description', 'unit_id',
-        'items_category_id', 'item_id', 'payment_mode', 'qty'];
+    protected $fillable = ['expense_category_id', 'name', 'amount', 'description', 'expense_date',
+        'payment_mode'];
 
-    public function itemCategory(): BelongsTo
+    public function expenseCategory(): BelongsTo
     {
-        return $this->belongsTo(ItemsCategory::class, 'items_category_id');
-    }
-
-    public function unit(): BelongsTo
-    {
-        return $this->belongsTo(Unit::class);
-    }
-
-    public function item()
-    {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(ExpenseCategory::class);
     }
 }

@@ -9,19 +9,7 @@
                   class="nav-link active d-flex align-items-center"><i class="bi bi-speedometer2 me-2"></i>
                   Dashboard</a>
           </li>
-          <li class="nav-item">
-              <a href="{{ route('category') }}" @class([
-                  'nav-link d-flex align-items-center',
-                  'active' => request()->is(['category']),
-              ])><i class="bi bi-folder-fill me-2"></i>
-                  Categories</a>
-          </li>
-          <li class="nav-item">
-              <a href="{{ route('items') }}" @class([
-                  'nav-link d-flex align-items-center',
-                  'active' => request()->is(['items']),
-              ])><i class="bi bi-box-seam-fill me-2"></i>
-                  Items</a>
+
           </li>
           <li class="nav-item">
               <a href="{{ route('expenses') }}" @class([

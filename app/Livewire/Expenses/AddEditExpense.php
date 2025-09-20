@@ -2,54 +2,42 @@
 
 namespace App\Livewire\Expenses;
 
+use App\Models\ExpenseCategory;
 use App\Models\Expenses;
-use App\Models\Item;
-use App\Models\ItemsCategory;
-use App\Models\Unit;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class AddEditExpense extends Component
 {
-    public $item_categories = null;
+    public $expense_categories = null;
 
-    public $items = null;
-
-    public $units = null;
-
-    public $items_category_id = null;
-
-    public $item_id = null;
-
-    public $unit_id = null;
+    public $expense_category_id = null;
 
     public $description = '';
 
-    public $price = 0;
+    public $amount = 0;
 
-    public $qty = 0;
+    public $name = '';
 
-    public $date = null;
+    public $expense_date = null;
 
     public $expense = null;
 
-    public string $payment_mode = 'offline';
+    public string $payment_mode = 'Cash';
 
     protected $rules = [
-        'item_id' => ['required', 'integer', 'exists:items,id'],
-        'items_category_id' => ['required', 'exists:items_categories,id'],
-        'unit_id' => ['required', 'exists:units,id'],
-        'qty' => ['required', 'min:1', 'max:100'],
-        'price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-        'date' => ['required'],
-        'payment_mode' => ['required', 'in:online,offline'],
+        'name' => ['required', 'min:3', 'max:200'],
+        'expense_category_id' => ['required', 'exists:expense_categories,id'],
+        'amount' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+        'expense_date' => ['required'],
+        'payment_mode' => ['required', 'in:online,cash'],
         'description' => ['nullable', 'min:3', 'max:500'],
 
     ];
 
     protected function resetError()
     {
-        $this->item_id = $this->description = $this->items_category_id = $this->qty = $this->price = $this->date = $this->payment_mode = '';
+        $this->name = $this->description = $this->expense_category_id = $this->amount = $this->expense_date = $this->payment_mode = '';
         $this->resetErrorBag(['name', 'description']);
 
     }
@@ -58,12 +46,8 @@ class AddEditExpense extends Component
     public function handleShowExpenseModel()
     {
         $this->resetError();
-        $this->item_categories = ItemsCategory::NotEmptyWithCategory()->get();
-        $this->items_category_id = $this->item_categories->first()->id;
-        $this->getItem($this->items_category_id);
-        $this->item_id = $this->items->first()->id;
-        $this->units = Unit::get();
-        $this->unit_id = $this->units->first()->id;
+        $this->expense_categories = ExpenseCategory::get();
+        $this->expense_category_id = $this->expense_categories->first()->id;
         $this->dispatch('show-expense-modal');
 
     }
@@ -73,27 +57,15 @@ class AddEditExpense extends Component
     {
         $this->resetError();
         $this->expense = $expense;
-
-        $this->item_categories = ItemsCategory::NotEmptyWithCategory()->get();
-        $this->items_category_id = $expense->items_category_id;
-        $this->units = Unit::get();
-
-        $this->getItem($this->items_category_id);
-
-        $this->item_id = $expense->item_id;
-        $this->unit_id = $expense->unit_id;
-        $this->price = $expense->price;
-        $this->qty = $expense->qty;
+        $this->name = $expense->name;
+        $this->expense_categories = ExpenseCategory::get();
+        $this->expense_category_id = $this->expense_categories->first()->id;
+        $this->amount = $expense->amount;
         $this->description = $expense->description;
-        $this->date = $expense->date;
+        $this->expense_date = $expense->expense_date;
         $this->payment_mode = $expense->payment_mode;
         $this->dispatch('show-expense-modal');
 
-    }
-
-    public function getItem($selected_category_id)
-    {
-        $this->items = Item::selectedCategory($selected_category_id)->get();
     }
 
     public function save()

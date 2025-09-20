@@ -13,16 +13,16 @@ class SchemaBlueprintServiceProvider extends ServiceProvider
     public function register(): void
     {
         Blueprint::macro('auditable', function () {
-            $this->foreignId('user_id')->constrained('users');
+            $this->foreignId('created_by')->constrained('users');
         });
         Blueprint::macro('dropAuditable', function () {
-            $this->dropColumn(['user_id']);
+            $this->dropColumn(['created_by']);
         });
         Blueprint::macro('auditableWithNullable', function () {
-            $this->foreignId('user_id')->nullable()->constrained('users');
+            $this->foreignId('created_by')->nullable()->constrained('users');
         });
         Blueprint::macro('dropAuditable', function () {
-            $this->dropColumn(['user_id']);
+            $this->dropColumn(['created_by']);
         });
     }
 

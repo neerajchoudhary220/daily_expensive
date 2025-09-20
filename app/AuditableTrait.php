@@ -12,7 +12,7 @@ trait AuditableTrait
 
         static::creating(function ($model) {
             if (auth()->check()) { // check if user is logged in
-                $model->user_id = auth()->id(); // safer than auth()->user()->id
+                $model->created_by = auth()->id(); // safer than auth()->user()->id
             }
         });
     }

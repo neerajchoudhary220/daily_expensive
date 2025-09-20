@@ -14,14 +14,11 @@ return new class extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->auditable();
-            $table->foreignId('items_category_id')->constrained('items_categories');
-            $table->foreignId('item_id')->constrained('items');
-            $table->foreignId('unit_id')->constrained('units');
-            $table->date('date');
-            $table->decimal('price', 8)->nullable();
-            $table->enum('payment_mode', ['online', 'offline'])->default('online');
-            $table->string('qty')->nullable();
-
+            $table->foreignId('expense_category_id')->constrained('expense_categories');
+            $table->string('name');
+            $table->decimal('amount', 8)->nullable();
+            $table->date('expense_date');
+            $table->enum('payment_mode', ['online', 'cash'])->default('online');
             $table->longText('description');
             $table->timestamps();
         });
