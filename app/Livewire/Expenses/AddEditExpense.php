@@ -4,6 +4,7 @@ namespace App\Livewire\Expenses;
 
 use App\Models\ExpenseCategory;
 use App\Models\Expenses;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -48,6 +49,8 @@ class AddEditExpense extends Component
         $this->resetError();
         $this->expense_categories = ExpenseCategory::get();
         $this->expense_category_id = $this->expense_categories->first()->id;
+        $this->expense_date = Carbon::now()->format('Y-m-d');
+
         $this->dispatch('show-expense-modal');
 
     }

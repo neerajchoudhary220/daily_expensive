@@ -18,9 +18,10 @@
                         <form
                             @if (!empty($expense)) wire:submit.prevent="update" @else wire:submit.prevent="save" @endif>
                             <div class="row">
+
                                 <!-- Category -->
                                 @if ($expense_categories)
-                                    <div class="mb-3 col-xl-6 col-lg-6 col-md-12">
+                                    <div class="mb-3 col-xl-12 col-lg-12 col-md-12">
                                         <label for="category" class="form-label fw-bold required"><i
                                                 class="bi bi-list-ul me-2 text-primary"></i>Category</label>
 
@@ -36,12 +37,23 @@
                                         @enderror
                                     </div>
                                 @endif
-
+                                {{-- Expense Date --}}
+                                <div class="mb-3 col-xl-6 col-lg-6 col-md-12">
+                                    <label for="expense_date" class="form-label fw-bold required"><i
+                                            class="bi bi-calendar-date  me-2 text-primary"></i> Expense Date
+                                    </label>
+                                    <input class="form-control rounded-3" type="date" id="expense_date"
+                                        wire:model="expense_date">
+                                    @error('expense_date')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 {{-- Name --}}
                                 <div class="mb-3 col-xl-6 col-lg-6 col-md-12">
                                     <label for="name" class="form-label fw-bold required"><i
                                             class="bi bi-box-seam-fill me-2 text-primary"></i>Name</label>
-                                    <input class="form-control rounded-3" id="name" wire:model="name">
+                                    <input class="form-control rounded-3" id="name" wire:model="name"
+                                        placeholder="Enter The Expense">
                                     @error('name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -62,22 +74,14 @@
                                     @enderror
 
                                 </div>
-                                {{-- Expense Date --}}
-                                <div class="mb-3 col-xl-6 col-lg-6 col-md-12">
-                                    <label for="expense_date" class="form-label fw-bold required"><i
-                                            class="bi bi-calendar-date  me-2 text-primary"></i> Expense Date</label>
-                                    <input class="form-control rounded-3" type="date" id="expense_date"
-                                        wire:model="expense_date">
-                                    @error('expense_date')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
+
 
                                 {{-- Amount --}}
                                 <div class="mb-3 col-xl-6 col-lg-6 col-md-12">
                                     <label for="amount" class="form-label fw-bold required"><i
                                             class="bi bi-cash-coin me-2 text-primary"></i> Amount</label>
-                                    <input class="form-control rounded-3" id="amount" wire:model="amount">
+                                    <input class="form-control rounded-3" id="amount" wire:model="amount"
+                                        placeholder="Enter The Amount">
                                     @error('amount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

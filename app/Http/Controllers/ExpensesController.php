@@ -18,8 +18,10 @@ class ExpensesController extends Controller
     public function index()
     {
         $total_expense = Expenses::sum('amount');
+        $today = Carbon::now()->format('Y-m-d');
+        $today_expense = Expenses::whereDate('expense_date', $today)->sum('amount');
 
-        return view('web.expenses.index', compact('total_expense'));
+        return view('web.expenses.index', compact('total_expense', 'today_expense'));
 
     }
 
