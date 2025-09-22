@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExpenseCategory;
 use App\Models\Expenses;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,11 +11,17 @@ class ExpensesController extends Controller
 {
     public function index()
     {
-        $total_expense = Expenses::sum('amount');
         $today = Carbon::now()->format('Y-m-d');
+        // Current month's expense
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
         $today_expense = Expenses::whereDate('expense_date', $today)->sum('amount');
+        $total_expense = Expenses::whereMonth('expense_date', $currentMonth)
+            ->whereYear('expense_date', $currentYear)
+            ->sum('amount');
+        $categories = ExpenseCategory::get();
 
-        return view('web.expenses.index', compact('total_expense', 'today_expense'));
+        return view('web.expenses.index', compact('total_expense', 'today_expense', 'categories'));
 
     }
 

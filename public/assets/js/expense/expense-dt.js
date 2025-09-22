@@ -1,37 +1,32 @@
 function dbTble() {
     
-  expense_dt_tbl = $("#expense-dt-tbl").DataTable({
+expense_dt_tbl = $("#expense-dt-tbl").DataTable({
     serverSide: true,
     stateSave: false,
     pageLength: 100,
-    responsive: {
-        details: {
-            display: $.fn.dataTable.Responsive.display.modal({
-                header: function (row) {
-                    var data = row.data();
-                    return 'Expense Details for ' + data.name;
-                }
-            }),
-            renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                tableClass: 'table'
-            })
-        }
-    },
+    responsive: false,
     ajax: {
         url: expense_list_url,
         data: {},
     },
     columns: [
-        { name: 'idx', data: 'idx' },
-        { name: 'name', data: 'name' },
-        { name: 'category', data: 'category' },
-        { name: 'amount', data: 'amount' },
-        { name: 'payment_mode', data: 'payment_mode' },
-        { name: 'expense_date', data: 'expense_date' },
-        { name: 'description', data: 'description' },
-        { name: 'action', data: 'action', orderable: false },
+        { name: 'idx', data: 'idx', title: "ID" },
+        { name: 'name', data: 'name', title: "Name" },
+        { name: 'category', data: 'category', title: "Category" },
+        { name: 'amount', data: 'amount', title: "Amount" },
+        { name: 'payment_mode', data: 'payment_mode', title: "Payment Mode" },
+        { name: 'expense_date', data: 'expense_date', title: "Expense Date" },
+        { name: 'description', data: 'description', title: "Description" },
+        { name: 'action', data: 'action', title: "Action", orderable: false },
     ],
     order: [5, 'desc'],
+    createdRow: function (row, data, dataIndex) {
+        // Add data-label for each td based on its column title
+        $('td', row).each(function (colIndex) {
+            var columnTitle = expense_dt_tbl.column(colIndex).header().innerText;
+            $(this).attr('data-label', columnTitle);
+        });
+    },
     drawCallback: function (settings, json) {
         $(".expense-edit").on("click", function () {
             const expense_id = $(this).data('id');
@@ -39,6 +34,7 @@ function dbTble() {
         });
     },
 });
+
 
 }
 

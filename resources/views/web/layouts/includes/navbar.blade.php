@@ -1,4 +1,4 @@
- <nav class="navbar navbar-light bg-light shadow-sm">
+ <nav class="navbar navbar-light bg-light shadow-sm fixed-top">
      <div class="container-fluid">
          <button class="btn btn-outline-primary" id="toggleSidebar">☰</button>
 

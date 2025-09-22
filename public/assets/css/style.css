@@ -1,5 +1,8 @@
         body {
             overflow-x: hidden;
+            padding-top: 70px;
+            /* adjust based on navbar height */
+
         }
 
         #sidebar {
@@ -10,6 +13,14 @@
             color: #fff;
             transition: all 0.3s;
         }
+
+        /* For mobile (less than 768px width)
+        @media (max-width: 767.98px) {
+            #sidebar {
+                min-width: auto;
+                max-width: 100%;
+            }
+        } */
 
         #sidebar .nav-link {
             color: #adb5bd;
@@ -30,6 +41,22 @@
             margin-left: -220px;
         }
 
+
+
+        /* Mobile adjustments */
+        @media (max-width: 767.98px) {
+            #sidebar {
+                min-width: 80px;
+                max-width: 80px;
+            }
+
+            /* Collapsed sidebar on mobile */
+            #sidebar.collapsed {
+                margin-left: -80px;
+                /* hide full width */
+            }
+        }
+
         label.required::after {
             content: " *";
             color: red;
@@ -47,7 +74,7 @@
             border-collapse: collapse;
         }
 
-        /* Mobile view: Convert to card format */
+        /* Mobile view: Convert table into card format */
         @media (max-width: 767px) {
             #expense-dt-tbl thead {
                 display: none;
@@ -81,5 +108,15 @@
                 content: attr(data-label);
                 font-weight: bold;
                 color: #333;
+                margin-right: 10px;
+                /* spacing between label & value */
             }
+        }
+
+
+
+        .total-box {
+            width: fit-content;
+            padding: 5px;
+            /* background-color: var(--bs-info-bg-subtle); */
         }
