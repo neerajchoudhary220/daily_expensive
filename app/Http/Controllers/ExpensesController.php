@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ExpensesDataTable;
 use App\Models\Expenses;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ExpensesController extends Controller
 {
-    // public function index(ExpensesDataTable $dataTable)
-    // {
-    //     return $dataTable->render('web.expenses.index');
-    //     // return view('web.expenses.index');
-    // }
-
     public function index()
     {
         $total_expense = Expenses::sum('amount');
@@ -48,7 +41,7 @@ class ExpensesController extends Controller
             foreach ($data as $d) {
                 $d->idx = $idx;
                 $d->expense_date = Carbon::parse($d->expense_date)->format('d-M-Y');
-                $d->description = 'test';
+                $d->description = $d->description ?? '--';
                 $d->category = $d->expenseCategory->name;
                 $d->action = view('web.expenses.action', compact('d'))->render();
                 $idx++;

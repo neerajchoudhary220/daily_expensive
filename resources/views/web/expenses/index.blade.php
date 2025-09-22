@@ -2,10 +2,10 @@
 @section('title', 'Items Category')
 @section('contents')
     @push('custom-css')
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Bootstrap Icons -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- DataTables Responsive -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
     @endpush
+
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Expenses</h4>
