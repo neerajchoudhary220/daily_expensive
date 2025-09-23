@@ -45,7 +45,8 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
 
 function applyFilter(selected_value=null){
     expense_dt_tbl.settings()[0].ajax.data = {
-        category: selected_value?selected_value:$("#categories").val()
+        category: selected_value?selected_value:$("#categories").val(),
+        quick_day:$("#quick-date").val()
     };
      expense_dt_tbl.ajax.reload()
 }
@@ -61,6 +62,8 @@ $("#reset-filter-btn").on("click",function(){
 applyFilter();
 })
 
+
+//Select Quick Date
 
 // const deleteUser =(delete_url)=>{
 //     swal("Hello world!");

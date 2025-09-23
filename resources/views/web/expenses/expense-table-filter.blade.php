@@ -30,10 +30,10 @@
                     <i class="bi bi-calendar-check me-1 text-secondary"></i> Quick Date:
                 </label>
                 <select id="quick-date" class="form-select form-select-md shadow-sm rounded-3">
-                    <option value="{{ now()->format('Y-m-d') }}" selected>Today</option>
+                    <option value="today" selected>Today</option>
                     <option value="tomorrow">Tomorrow</option>
-                    <option value="this_week">This Week</option>
-                    <option value="this_month">This Month</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
                 </select>
             </div>
 

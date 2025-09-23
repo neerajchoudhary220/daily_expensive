@@ -11,11 +11,10 @@ class ExpensesController extends Controller
 {
     public function index()
     {
-        $today = Carbon::now()->format('Y-m-d');
         // Current month's expense
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
-        $today_expense = Expenses::whereDate('expense_date', $today)->sum('amount');
+        $today_expense = Expenses::forToday()->sum('amount');
         $total_expense = Expenses::whereMonth('expense_date', $currentMonth)
             ->whereYear('expense_date', $currentYear)
             ->sum('amount');
@@ -68,11 +67,17 @@ class ExpensesController extends Controller
         $request = collect($request);
         $search = $request->get('search');
         $selected_category = $request->get('category');
+        $quick_day = $request->get('quick_day');
 
         $query = Expenses::query();
 
         return $query
             ->when($search, fn ($expense) => $expense->where('name', 'like', '%'.$search['value'].'%'))
-            ->when($selected_category, fn ($expense) => $expense->forCategory($selected_category));
+            ->when($selected_category, fn ($expense) => $expense->forCategory($selected_category))
+            ->when($quick_day === 'today', fn ($expense) => $expense->forToday($quick_day))
+            ->when($quick_day === 'tomorrow', fn ($expense) => $expense->forTomorrow($quick_day))
+            ->when($quick_day === 'week', fn ($expense) => $expense->forWeek($quick_day))
+            ->when($quick_day === 'month', fn ($expense) => $expense->forMonth($quick_day));
+
     }
 }
