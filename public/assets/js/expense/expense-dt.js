@@ -1,4 +1,10 @@
 let expense_dt_tbl=''
+const quick_day = $("#quick-date");
+const category = $("#categories");
+const payment_method = $("#payment_method");
+const start_date = $("#start-date");
+const end_date = $("#end-date");
+const custom_date = $("#custom-date-filter");
 
 function dbTble() {
     
@@ -6,7 +12,7 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
     
     serverSide: true,
     stateSave: false,
-    pageLength: 100,
+    pageLength: 25,
     responsive: false,
     ajax: {
         url: expense_list_url,
@@ -37,6 +43,10 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
             const expense_id = $(this).data('id');
             Livewire.dispatch('edit-expense-event', { 'expense': expense_id });
         });
+        $(".expense-delete").on("click",function(){
+            const delete_url = $(this).data('delete-url');
+            deleteExpense(delete_url);
+        })
     },
 });
 
@@ -44,11 +54,20 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
 }
 
 function applyFilter(selected_value=null){
-    expense_dt_tbl.settings()[0].ajax.data = {
-        category: selected_value?selected_value:$("#categories").val(),
-        quick_day:$("#quick-date").val()
+
+    const filter_data = {
+        category: selected_value?selected_value:category.val(),
+        quick_day:quick_day.val(),
+        payment_method:payment_method.val(),
     };
+    if(quick_day.val()==='custom_date'){
+        filter_data['start_date'] = start_date.val();
+        filter_data['end_date']=end_date.val();
+    }
+
+    expense_dt_tbl.settings()[0].ajax.data = filter_data;
      expense_dt_tbl.ajax.reload()
+     Livewire.dispatch('expense-filter-event',filter_data)
 }
 
 //Click On Apply Filter
@@ -58,38 +77,50 @@ $('#apply-filter-btn').on("click",function(){
 
 //Click On Reset Button
 $("#reset-filter-btn").on("click",function(){
-    $("#categories").val("0").trigger("change");
+    category.val("0").trigger("change");
+    quick_day.val("month").trigger('change');
+    payment_method.val("all").trigger('change');
+    custom_date.addClass('d-none');
+
 applyFilter();
 })
 
+//Change On Quick Date
+quick_day.on('change',function(){
+    const selected_val = $(this).val();
+    if(selected_val==='custom_date'){
+        custom_date.removeClass('d-none');
+    }else{
+        custom_date.addClass('d-none');
+    }
+})
 
-//Select Quick Date
 
-// const deleteUser =(delete_url)=>{
-//     swal("Hello world!");
-//     swal({
-//         title: 'Are you sure?',
-//         text: "You won't be able to revert this!",
-//         icon: 'warning',
-//         buttons: true,
-//         confirmButtonColor: 'success',
-//         cancelButtonColor: '#000',
-//         confirmButtonText: 'Yes, delete it!'
-//     }).then((result) => {
-//         console.log(result);
-//         if (result) {
-//             $.ajax({
-//                 url: delete_url,
-//                 method: "delete",
-//                 success: function (data) {
-//                     swal(`Deleted!`, data.message,`success`);
-//                     expense_dt_tbl.destroy()
-//                     dbTble()
-//                 }
-//             });
-//         }
-//     });
-// }
+//Delete Expense
+const deleteExpense = (delete_url) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to delete this.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545', // green
+        cancelButtonColor: '#0dcaf0',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: delete_url,
+                method: "delete",
+                success: function (data) {
+                    Swal.fire('Deleted!', data.msg, 'success');
+                    expense_dt_tbl.destroy();
+                    dbTble();
+                }
+            });
+        }
+    });
+}
+
 
 
 

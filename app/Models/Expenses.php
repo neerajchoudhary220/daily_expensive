@@ -42,9 +42,9 @@ class Expenses extends Model
 
     }
 
-    public function scopeForTomorrow(Builder $query): Builder
+    public function scopeForYesterDay(Builder $query): Builder
     {
-        return $query->whereDate('expense_date', Carbon::tomorrow());
+        return $query->whereDate('expense_date', Carbon::yesterday());
     }
 
     public function scopeForMonth(Builder $query): Builder
@@ -60,6 +60,20 @@ class Expenses extends Model
             Carbon::now()->startOfWeek(),
             Carbon::now()->endOfWeek(),
         ]);
+    }
+
+    public function scopeForDate(Builder $query, string $start_date, string $end_date): Builder
+    {
+        return $query->whereBetween('expense_date', [$start_date, $end_date]);
+    }
+
+    public function scopeForPaymentMethod(Builder $query, string $payment_type): Builder
+    {
+        if ($payment_type === 'all') {
+            return $query;
+        }
+
+        return $query->where('payment_mode', $payment_type);
     }
 
     public function scopeForAllCategory(Builder $query): Builder

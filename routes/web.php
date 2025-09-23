@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(ExpensesController::class)->prefix('expenses')->group(function () {
         Route::get('/', 'index')->name('expenses');
         Route::get('list', 'list')->name('expense.list');
+        Route::delete('{expense}/delete', 'destroy')->name('expense.delete');
     });
 
     Route::get('logout', function () {

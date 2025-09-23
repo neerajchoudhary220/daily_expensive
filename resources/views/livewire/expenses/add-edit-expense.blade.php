@@ -81,7 +81,7 @@
                                     <label for="amount" class="form-label fw-bold required"><i
                                             class="bi bi-cash-coin me-2 text-primary"></i> Amount</label>
                                     <input class="form-control rounded-3" id="amount" wire:model="amount"
-                                        placeholder="Enter The Amount">
+                                        placeholder="Enter The Amount" type="number" min="1" max="10000">
                                     @error('amount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

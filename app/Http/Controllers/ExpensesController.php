@@ -11,16 +11,9 @@ class ExpensesController extends Controller
 {
     public function index()
     {
-        // Current month's expense
-        $currentMonth = Carbon::now()->month;
-        $currentYear = Carbon::now()->year;
-        $today_expense = Expenses::forToday()->sum('amount');
-        $total_expense = Expenses::whereMonth('expense_date', $currentMonth)
-            ->whereYear('expense_date', $currentYear)
-            ->sum('amount');
         $categories = ExpenseCategory::get();
 
-        return view('web.expenses.index', compact('total_expense', 'today_expense', 'categories'));
+        return view('web.expenses.index', compact('categories'));
 
     }
 
@@ -67,7 +60,10 @@ class ExpensesController extends Controller
         $request = collect($request);
         $search = $request->get('search');
         $selected_category = $request->get('category');
-        $quick_day = $request->get('quick_day');
+        $quick_day = $request->get('quick_day', 'month');
+        $payment_method = $request->get('payment_method');
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
 
         $query = Expenses::query();
 
@@ -75,9 +71,20 @@ class ExpensesController extends Controller
             ->when($search, fn ($expense) => $expense->where('name', 'like', '%'.$search['value'].'%'))
             ->when($selected_category, fn ($expense) => $expense->forCategory($selected_category))
             ->when($quick_day === 'today', fn ($expense) => $expense->forToday($quick_day))
-            ->when($quick_day === 'tomorrow', fn ($expense) => $expense->forTomorrow($quick_day))
+            ->when($quick_day === 'yesterday', fn ($expense) => $expense->forYesterDay($quick_day))
             ->when($quick_day === 'week', fn ($expense) => $expense->forWeek($quick_day))
-            ->when($quick_day === 'month', fn ($expense) => $expense->forMonth($quick_day));
+            ->when($quick_day === 'month', fn ($expense) => $expense->forMonth($quick_day))
+            ->when($payment_method, fn ($expense) => $expense->forPaymentMethod($payment_method))
+            ->when($start_date && $end_date, fn ($expense) => $expense->forDate($start_date, $end_date));
 
+    }
+
+    public function destroy(Expenses $expense)
+    {
+        $expense->delete();
+
+        return response()->json([
+            'msg' => 'Expense Deleted Successfully!',
+        ]);
     }
 }
