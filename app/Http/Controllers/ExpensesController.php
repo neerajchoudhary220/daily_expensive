@@ -26,6 +26,7 @@ class ExpensesController extends Controller
             $order_dir = $_order[0]['dir'];
             $skip = request('start');
             $take = request('length');
+            $recordsTotal = Expenses::query()->count();
             $data = self::listFilter($request)
                 ->when($request->get('category'), fn ($expense) => $expense->with('expenseCategory'))
                 ->orderBy($order_by, $order_dir)
@@ -33,9 +34,7 @@ class ExpensesController extends Controller
                 ->take($take)
                 ->get();
 
-            $recordsTotal = $data->count();
-            $recordsFiltered = $data->count();
-            $total_expense = $data->sum('amount');
+            $recordsFiltered = self::listFilter($request)->count();
             $idx = 1;
             foreach ($data as $d) {
                 $d->idx = $idx;
@@ -47,7 +46,7 @@ class ExpensesController extends Controller
             }
 
             return [
-                'draw' => request('draw'),
+                'draw' => intval($request->get('draw')),
                 'recordsTotal' => $recordsTotal,
                 'recordsFiltered' => $recordsFiltered,
                 'data' => $data,
