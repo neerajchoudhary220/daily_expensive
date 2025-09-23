@@ -1,10 +1,6 @@
 @extends('web.layouts.main')
-@section('title', 'Items Category')
+@section('title', 'Expenses')
 @section('contents')
-    {{-- @push('custom-css')
-        <!-- DataTables Responsive -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
-    @endpush --}}
 
     <div class="row mb-3">
         <div class="col-lg-12 d-flex justify-content-between align-items-center">

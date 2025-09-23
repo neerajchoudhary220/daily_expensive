@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\web\AuthController;
 use Illuminate\Support\Facades\Auth;
@@ -12,9 +13,9 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth')->group(function () {
     // Dashboard
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('dashboard');
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/', 'index')->name('dashboard');
+    });
 
     // Expenses
     Route::controller(ExpensesController::class)->prefix('expenses')->group(function () {

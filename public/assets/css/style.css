@@ -1,6 +1,7 @@
         body {
             overflow-x: hidden;
             padding-top: 70px;
+
             /* adjust based on navbar height */
 
         }
@@ -119,4 +120,50 @@
             width: fit-content;
             padding: 5px;
             /* background-color: var(--bs-info-bg-subtle); */
+        }
+
+        /*----------- Dashboard expense card-------------------*/
+        .expense-card {
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 150px;
+        }
+
+        .expense-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .expense-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .expense-category {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .expense-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 575.98px) {
+            .expense-category {
+                font-size: 0.8rem;
+            }
+
+            .expense-amount {
+                font-size: 1rem;
+            }
+        }
+
+        /*--------------Bar Chart----------------*/
+        #barChart {
+            max-width: 100%;
+            margin: auto;
         }
