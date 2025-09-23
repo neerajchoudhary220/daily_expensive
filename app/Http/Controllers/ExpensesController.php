@@ -32,18 +32,18 @@ class ExpensesController extends Controller
             $_columns = request('columns');
             $order_by = $_columns[$_order[0]['column']]['name'];
             $order_dir = $_order[0]['dir'];
-            $search = request('search');
             $skip = request('start');
             $take = request('length');
+            $data = self::listFilter($request)
+                ->when($request->get('category'), fn ($expense) => $expense->with('expenseCategory'))
+                ->orderBy($order_by, $order_dir)
+                ->skip($skip)
+                ->take($take)
+                ->get();
 
-            $query = Expenses::query();
-            if (isset($search['value'])) {
-                $query->where('name', 'like', '%'.$search['value'].'%');
-            }
-
-            $data = $query->orderBy($order_by, $order_dir)->skip($skip)->take($take)->get();
-            $recordsTotal = $query->count();
-            $recordsFiltered = $query->count();
+            $recordsTotal = $data->count();
+            $recordsFiltered = $data->count();
+            $total_expense = $data->sum('amount');
             $idx = 1;
             foreach ($data as $d) {
                 $d->idx = $idx;
@@ -61,5 +61,18 @@ class ExpensesController extends Controller
                 'data' => $data,
             ];
         }
+    }
+
+    public static function listFilter($request)
+    {
+        $request = collect($request);
+        $search = $request->get('search');
+        $selected_category = $request->get('category');
+
+        $query = Expenses::query();
+
+        return $query
+            ->when($search, fn ($expense) => $expense->where('name', 'like', '%'.$search['value'].'%'))
+            ->when($selected_category, fn ($expense) => $expense->forCategory($selected_category));
     }
 }

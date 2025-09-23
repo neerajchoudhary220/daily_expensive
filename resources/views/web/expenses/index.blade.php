@@ -27,27 +27,7 @@
                 </div>
 
                 <div class="card-body p-3">
-                    <div class="card">
-                        <div class="card-header alert alert-secondary d-flex justify-content-between">
-                            <h6><i class="bi bi-filter me-1"></i>Filter</h6>
-                            <h6><i class="bi bi-plus-circle me-1 text-danger" role="button" data-bs-toggle="collapse"
-                                    href="#filter-body"></i>
-                            </h6>
-                        </div>
-                        <div class="card-body" id="filter-body">
-                            <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
-                                <div class="align-items-center gap-2">
-                                    <label for="categories" class="mb-0">Categories:</label>
-                                    <select id="categories" class="form-select form-select-md">
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    @include('web.expenses.expense-table-filter')
 
                     <hr>
 

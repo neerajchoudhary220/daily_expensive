@@ -1,13 +1,18 @@
+let expense_dt_tbl=''
+
 function dbTble() {
     
 expense_dt_tbl = $("#expense-dt-tbl").DataTable({
+    
     serverSide: true,
     stateSave: false,
     pageLength: 100,
     responsive: false,
     ajax: {
         url: expense_list_url,
-        data: {},
+        data: {
+            // 'category':$("#categories :selected").val()
+        },
     },
     columns: [
         { name: 'idx', data: 'idx', title: "ID" },
@@ -38,6 +43,25 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
 
 }
 
+function applyFilter(selected_value=null){
+    expense_dt_tbl.settings()[0].ajax.data = {
+        category: selected_value?selected_value:$("#categories").val()
+    };
+     expense_dt_tbl.ajax.reload()
+}
+
+//Click On Apply Filter
+$('#apply-filter-btn').on("click",function(){
+  applyFilter();
+})
+
+//Click On Reset Button
+$("#reset-filter-btn").on("click",function(){
+    $("#categories").val("0").trigger("change");
+applyFilter();
+})
+
+
 // const deleteUser =(delete_url)=>{
 //     swal("Hello world!");
 //     swal({
@@ -63,6 +87,8 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
 //         }
 //     });
 // }
+
+
 
 $(document).ready(function(){
     dbTble();
