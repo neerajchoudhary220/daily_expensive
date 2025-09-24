@@ -26,7 +26,8 @@ class TotalExpense extends Component
     #[On('expense-filter-event')]
     public function filter(string $category, string $quick_day, string $payment_method, ?string $start_date = null, ?string $end_date = null)
     {
-        $this->total_expense = Expenses::forCategory($category)->forPaymentMethod($payment_method)
+        $this->total_expense = Expenses::forCategory($category)
+            ->forPaymentMethod($payment_method)
             ->when($quick_day === 'today', fn ($expense) => $expense->forToday($quick_day))
             ->when($quick_day === 'yesterday', fn ($expense) => $expense->forYesterDay($quick_day))
             ->when($quick_day === 'week', fn ($expense) => $expense->forWeek($quick_day))

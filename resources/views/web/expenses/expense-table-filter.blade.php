@@ -12,17 +12,19 @@
     <div class="card-body collapse hide" id="filter-body">
         <div class="row g-3 mb-3">
             <!-- Category Select -->
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <label for="categories" class="fw-semibold">
-                    <i class="bi bi-list-ul me-1 text-secondary"></i> Categories:
-                </label>
-                <select id="categories" class="form-select form-select-md shadow-sm rounded-3">
-                    <option selected value="0">All</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+            @if (request()->segment(1) === 'expenses')
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label for="categories" class="fw-semibold">
+                        <i class="bi bi-list-ul me-1 text-secondary"></i> Categories:
+                    </label>
+                    <select id="categories" class="form-select form-select-md shadow-sm rounded-3">
+                        <option selected value="0">All</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
 
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <label for="payment_method" class="fw-semibold">

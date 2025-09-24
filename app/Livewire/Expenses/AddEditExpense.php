@@ -62,7 +62,7 @@ class AddEditExpense extends Component
         $this->expense = $expense;
         $this->name = $expense->name;
         $this->expense_categories = ExpenseCategory::get();
-        $this->expense_category_id = $this->expense_categories->first()->id;
+        $this->expense_category_id = $expense->expense_category_id;
         $this->amount = $expense->amount;
         $this->description = $expense->description;
         $this->expense_date = $expense->expense_date;

@@ -12,8 +12,11 @@ class ExpensesController extends Controller
     public function index()
     {
         $categories = ExpenseCategory::get();
+        $startOfMonth = Carbon::now()->startOfMonth()->format('d-M-Y');
+        $today = Carbon::now()->format('d-M-Y');
+        $dateRange = $startOfMonth.' To '.$today;
 
-        return view('web.expenses.index', compact('categories'));
+        return view('web.expenses.index', compact('categories', 'dateRange'));
 
     }
 
@@ -39,7 +42,7 @@ class ExpensesController extends Controller
             $idx = 1;
             foreach ($data as $d) {
                 $d->idx = $idx;
-                $payment_mode = $d->payment_mode;
+                $payment_mode = ucfirst($d->payment_mode);
                 $d->payment_mode = $payment_mode == 'Cash' ? "<div class='p-2 alert alert-warning text-dark text-center'>$payment_mode</div>" : "<div class='p-2 alert alert-info text-dark text-center'>$payment_mode</div>";
                 $d->expense_date = Carbon::parse($d->expense_date)->format('d-M-Y');
                 $d->description = $d->description ?? '--';

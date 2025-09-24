@@ -18,7 +18,7 @@
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-header bg-success text-white text-center rounded-top-4">
                     <h5 class="mb-0">
-                        <i class="bi bi-list-ul me-2"></i> Expense Details
+                        <i class="bi bi-list-ul me-2"></i> Expense Details ({{ $dateRange }})
                     </h5>
                 </div>
 
@@ -48,6 +48,7 @@
                 const expense_list_url = "{{ route('expense.list') }}";
             </script>
             <script src="{{ asset('assets/js/expense/expense-dt.js') }}"></script>
+            <script src="{{ asset('assets/js/expense/expense-filter.js') }}"></script>
             <script>
                 $(document).ready(function() {
                     $.ajaxSetup({

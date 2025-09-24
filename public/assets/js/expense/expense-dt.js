@@ -1,10 +1,5 @@
 let expense_dt_tbl=''
-const quick_day = $("#quick-date");
-const category = $("#categories");
-const payment_method = $("#payment_method");
-const start_date = $("#start-date");
-const end_date = $("#end-date");
-const custom_date = $("#custom-date-filter");
+
 
 function dbTble() {
     
@@ -50,11 +45,9 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
     },
 });
 
-
 }
 
 function applyFilter(selected_value=null){
-
     const filter_data = {
         category: selected_value?selected_value:category.val(),
         quick_day:quick_day.val(),
@@ -69,31 +62,6 @@ function applyFilter(selected_value=null){
      expense_dt_tbl.ajax.reload()
      Livewire.dispatch('expense-filter-event',filter_data)
 }
-
-//Click On Apply Filter
-$('#apply-filter-btn').on("click",function(){
-  applyFilter();
-})
-
-//Click On Reset Button
-$("#reset-filter-btn").on("click",function(){
-    category.val("0").trigger("change");
-    quick_day.val("month").trigger('change');
-    payment_method.val("all").trigger('change');
-    custom_date.addClass('d-none');
-
-applyFilter();
-})
-
-//Change On Quick Date
-quick_day.on('change',function(){
-    const selected_val = $(this).val();
-    if(selected_val==='custom_date'){
-        custom_date.removeClass('d-none');
-    }else{
-        custom_date.addClass('d-none');
-    }
-})
 
 
 //Delete Expense
@@ -120,8 +88,6 @@ const deleteExpense = (delete_url) => {
         }
     });
 }
-
-
 
 
 $(document).ready(function(){

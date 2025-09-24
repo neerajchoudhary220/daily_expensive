@@ -18,10 +18,10 @@ class Expenses extends Model
     protected $fillable = ['expense_category_id', 'name', 'amount', 'description', 'expense_date',
         'payment_mode'];
 
-    protected function paymentMode(): Attribute
-    {
-        return Attribute::make(get: fn (string $payment_mode) => ucfirst($payment_mode));
-    }
+    // protected function paymentMode(): Attribute
+    // {
+    //     return Attribute::make(get: fn (string $payment_mode) => ucfirst($payment_mode));
+    // }
 
     public function expenseCategory(): BelongsTo
     {
