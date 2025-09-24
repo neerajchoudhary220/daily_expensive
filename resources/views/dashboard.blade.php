@@ -27,9 +27,14 @@
                             <div class="card-header alert alert-info">
                                 <h6>Expenses Chart</h6>
                             </div>
-                            <div class="card-body">
-                                <div id="barChart">
+                            <div class="card-body p-0">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="barChart">
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
 
