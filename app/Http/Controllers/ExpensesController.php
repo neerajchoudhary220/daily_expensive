@@ -30,6 +30,7 @@ class ExpensesController extends Controller
             $data = self::listFilter($request)
                 ->when($request->get('category'), fn ($expense) => $expense->with('expenseCategory'))
                 ->orderBy($order_by, $order_dir)
+                ->orderBy('id', 'DESC')
                 ->skip($skip)
                 ->take($take)
                 ->get();

@@ -12,7 +12,7 @@ expense_dt_tbl = $("#expense-dt-tbl").DataTable({
     
     serverSide: true,
     stateSave: false,
-    pageLength: 25,
+    pageLength: 10,
     responsive: false,
     ajax: {
         url: expense_list_url,

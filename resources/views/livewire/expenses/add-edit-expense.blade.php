@@ -75,17 +75,19 @@
 
                                 </div>
 
-
                                 {{-- Amount --}}
                                 <div class="mb-3 col-xl-6 col-lg-6 col-md-12">
-                                    <label for="amount" class="form-label fw-bold required"><i
-                                            class="bi bi-cash-coin me-2 text-primary"></i> Amount</label>
+                                    <label for="amount" class="form-label fw-bold required">
+                                        <i class="bi bi-cash-coin me-2 text-primary"></i> Amount
+                                    </label>
                                     <input class="form-control rounded-3" id="amount" wire:model="amount"
-                                        placeholder="Enter The Amount" type="number" min="1" max="10000">
+                                        placeholder="Enter The Amount" type="number" min="1" max="10000"
+                                        step="0.01">
                                     @error('amount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 <!-- Notes -->
                                 <div class="mb-3">
                                     <label for="notes" class="form-label fw-bold">
