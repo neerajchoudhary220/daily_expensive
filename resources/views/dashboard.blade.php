@@ -3,7 +3,7 @@
 @section('contents')
     <h4 class="mb-0">Dashboard</h4>
     <hr>
-    <div class="container py-2 bg-light">
+    <div class="py-2 bg-light">
         @include('web.expenses.expense-table-filter')
 
         <div class="card shadow-lg border-0 rounded-4 mt-3">

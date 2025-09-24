@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=no">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/expense_tracker.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/expense_tracker.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/img/expense_tracker.png') }}">
     <title>@yield('title', 'Expenses Tracker')</title>
     @include('web.layouts.includes.css')
     @stack('custom-css')
