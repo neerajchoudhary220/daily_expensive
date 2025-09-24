@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\AuditableTrait;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,11 @@ class Expenses extends Model
 
     protected $fillable = ['expense_category_id', 'name', 'amount', 'description', 'expense_date',
         'payment_mode'];
+
+    protected function paymentMode(): Attribute
+    {
+        return Attribute::make(get: fn (string $payment_mode) => ucfirst($payment_mode));
+    }
 
     public function expenseCategory(): BelongsTo
     {

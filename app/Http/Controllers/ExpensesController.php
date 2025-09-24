@@ -39,6 +39,8 @@ class ExpensesController extends Controller
             $idx = 1;
             foreach ($data as $d) {
                 $d->idx = $idx;
+                $payment_mode = $d->payment_mode;
+                $d->payment_mode = $payment_mode == 'Cash' ? "<div class='p-2 alert alert-warning text-dark text-center'>$payment_mode</div>" : "<div class='p-2 alert alert-info text-dark text-center'>$payment_mode</div>";
                 $d->expense_date = Carbon::parse($d->expense_date)->format('d-M-Y');
                 $d->description = $d->description ?? '--';
                 $d->category = $d->expenseCategory->name;
