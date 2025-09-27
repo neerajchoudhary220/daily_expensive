@@ -20,6 +20,15 @@
                   <span class="d-none d-md-inline">Expenses</span>
               </a>
           </li>
+          <li class="nav-item">
+              <a href="{{ route('income_transaction') }}" @class([
+                  'nav-link d-flex align-items-center',
+                  'active' => request()->is(['income-transaction']),
+              ])>
+                  <i class="bi bi-receipt me-2"></i>
+                  <span class="d-none d-md-inline">Income Transactions</span>
+              </a>
+          </li>
 
           <li class="nav-item">
               <a href="#" class="nav-link d-flex align-items-center">

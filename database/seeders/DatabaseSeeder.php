@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DefaultUserSeeder::class);
         $this->call(ExpenseCategorySeeder::class);
+        $this->call(IncomeSourceCategorySeeder::class);
     }
 }

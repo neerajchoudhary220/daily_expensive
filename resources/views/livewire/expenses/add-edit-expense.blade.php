@@ -126,14 +126,17 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+</div>
 
-            @script
-                <script>
-                    $(document).ready(function() {
-                        $wire.on('show-expense-modal', (e) => {
-                            $("#expense-modal").modal('show');
-                        });
+@script
+    <script>
+        $(document).ready(function() {
+            $wire.on('show-expense-modal', (e) => {
+                $("#expense-modal").modal('show');
+            });
 
-                    })
-                </script>
-            @endscript
+        })
+    </script>
+@endscript
