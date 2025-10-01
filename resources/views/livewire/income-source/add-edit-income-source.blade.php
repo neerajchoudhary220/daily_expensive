@@ -36,7 +36,7 @@
                                     <label for="category" class="form-label fw-bold">
                                         <i class="bi bi-tags me-1 text-success"></i> Source
                                     </label>
-                                    <select class="form-select" id="category" wire:model="source_category">
+                                    <select class="form-select" id="category" wire:model="income_source_category_id">
 
                                         @foreach ($source_categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>

@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     // Income Transaction
     Route::controller(IncomeTransactionController::class)->prefix('income-transaction')->group(function () {
         Route::get('/', 'index')->name('income_transaction');
+        Route::get('list', 'list')->name('income_transaction.list');
+
     });
 
     Route::get('logout', function () {

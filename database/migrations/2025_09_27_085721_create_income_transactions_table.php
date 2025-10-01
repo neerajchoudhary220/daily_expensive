@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->auditable();
             $table->foreignId('income_source_category_id')->constrained('income_source_categories');
+            $table->date('date');
             $table->decimal('amount', 8)->defualt(0);
             $table->longText('description')->nullable();
             $table->timestamps();

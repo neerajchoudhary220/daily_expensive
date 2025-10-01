@@ -23,7 +23,8 @@
                 </div>
 
                 <div class="card-body p-3">
-
+@include('web.expenses.expense-table-filter')
+                    <hr>
 
                     <div class="row">
 
@@ -34,6 +35,7 @@
                                         <th>#</th>
                                         <th>Amount</th>
                                         <th>Date</th>
+                                        <th>Category</th>
                                         <th>Notes</th>
                                         <th>Actions</th>
                                     </tr>
@@ -57,18 +59,20 @@
         @push('custom-js')
             @include('web.layouts.includes.datatable-js')
             <script>
+                const expense_list_url = "{{route('income_transaction.list')}}";
                 $(document).ready(function() {
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': "{{ csrf_token() }}",
                         }
-
                     })
+                    //Add a new transaction 
                     $("#add-new-transaction-btn").on("click", function() {
                         Livewire.dispatch('add-income-source-event')
                     })
 
                 })
             </script>
+            <script src="{{asset('assets/js/income-transactions/income-trasaction-dt.js')}}"></script>
         @endpush
     @endsection

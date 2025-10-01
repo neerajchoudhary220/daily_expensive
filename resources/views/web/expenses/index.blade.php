@@ -24,7 +24,6 @@
 
                 <div class="card-body p-3">
                     @include('web.expenses.expense-table-filter')
-
                     <hr>
 
                     @livewire('expenses.total-expense')

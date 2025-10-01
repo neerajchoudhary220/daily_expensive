@@ -33,7 +33,6 @@ class AddEditExpense extends Component
         'expense_date' => ['required'],
         'payment_mode' => ['required', 'in:online,cash'],
         'description' => ['nullable', 'min:3', 'max:500'],
-
     ];
 
     protected function resetError()
